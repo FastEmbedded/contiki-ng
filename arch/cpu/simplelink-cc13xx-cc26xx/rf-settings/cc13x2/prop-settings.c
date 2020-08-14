@@ -54,64 +54,64 @@ RF_Mode rf_prop_mode =
 /* Overrides for CMD_PROP_RADIO_DIV_SETUP */
 uint32_t rf_prop_overrides[] CC_ALIGN(4) =
 {
-  // override_prop_common.xml
-  // DC/DC regulator: In Tx, use DCDCCTL5[3:0]=0x7 (DITHER_EN=0 and IPEAK=7).
-  (uint32_t)0x00F788D3,
-  // override_tc106.xml
-  // Tx: Configure PA ramp time, PACTL2.RC=0x3 (in ADI0, set PACTL2[4:3]=0x3)
-  ADI_2HALFREG_OVERRIDE(0,16,0x8,0x8,17,0x1,0x1),
-  // Rx: Set AGC reference level to 0x1A (default: 0x2E)
-  HW_REG_OVERRIDE(0x609C,0x001A),
-  // Rx: Set RSSI offset to adjust reported RSSI by -1 dB (default: -2), trimmed for external bias and differential configuration
-  (uint32_t)0x000188A3,
-  // Rx: Set anti-aliasing filter bandwidth to 0xD (in ADI0, set IFAMPCTL3[7:4]=0xD)
-  ADI_HALFREG_OVERRIDE(0,61,0xF,0xD),
-  // Tx: Set wait time before turning off ramp to 0x1A (default: 0x1F)
-  HW_REG_OVERRIDE(0x6028,0x001A),
-#if RF_TXPOWER_BOOST_MODE
-  // TX power override
-  // Tx: Set PA trim to max to maximize its output power (in ADI0, set PACTL0=0xF8)
-  ADI_REG_OVERRIDE(0,12,0xF8),
-#endif
-  (uint32_t)0xFFFFFFFF,
+    // override_prop_common.json
+    // DC/DC regulator: In Tx, use DCDCCTL5[3:0]=0x7 (DITHER_EN=0 and IPEAK=7).
+    (uint32_t)0x00F788D3,
+    // override_prop_common_sub1g.json
+    // Set RF_FSCA.ANADIV.DIV_SEL_BIAS = 1. Bits [0:16, 24, 30] are don't care..
+    (uint32_t)0x4001405D,
+    // Set RF_FSCA.ANADIV.DIV_SEL_BIAS = 1. Bits [0:16, 24, 30] are don't care..
+    (uint32_t)0x08141131,
+    // override_tc146.json
+    // Tx: Configure PA ramp time, PACTL2.RC=0x3 (in ADI0, set PACTL2[4:3]=0x3)
+    ADI_2HALFREG_OVERRIDE(0,16,0x8,0x8,17,0x1,0x1),
+    // Tx: Configure PA ramping, set wait time before turning off (0x1A ticks of 16/24 us = 17.3 us).
+    HW_REG_OVERRIDE(0x6028,0x001A),
+    // Rx: Set AGC reference level to 0x16 (default: 0x2E)
+    HW_REG_OVERRIDE(0x609C,0x0016),
+    // Rx: Set RSSI offset to adjust reported RSSI by -1 dB (default: -2), trimmed for external bias and differential configuration
+    (uint32_t)0x000188A3,
+    // Rx: Set anti-aliasing filter bandwidth to 0x8 (in ADI0, set IFAMPCTL3[7:4]=0x8)
+    ADI_HALFREG_OVERRIDE(0,61,0xF,0x8),
+    (uint32_t)0xFFFFFFFF
 };
 /*---------------------------------------------------------------------------*/
 /* CMD_PROP_RADIO_DIV_SETUP: Proprietary Mode Radio Setup Command for All Frequency Bands */
 rfc_CMD_PROP_RADIO_DIV_SETUP_t rf_cmd_prop_radio_div_setup =
 {
-  .commandNo = CMD_PROP_RADIO_DIV_SETUP,
-  .status = IDLE,
-  .pNextOp = 0,
-  .startTime = 0x00000000,
-  .startTrigger.triggerType = TRIG_NOW,
-  .startTrigger.bEnaCmd = 0x0,
-  .startTrigger.triggerNo = 0x0,
-  .startTrigger.pastTrig = 0x0,
-  .condition.rule = COND_NEVER,
-  .condition.nSkip = 0x0,
-  .modulation.modType = 0x1,
-  .modulation.deviation = 0x64,
-  .modulation.deviationStepSz = 0x0,
-  .symbolRate.preScale = 0xF,
-  .symbolRate.rateWord = 0x8000,
-  .symbolRate.decimMode = 0x0,
-  .rxBw = 0x52,
-  .preamConf.nPreamBytes = 0x7,
-  .preamConf.preamMode = 0x0,
-  .formatConf.nSwBits = 0x18,
-  .formatConf.bBitReversal = 0x0,
-  .formatConf.bMsbFirst = 0x1,
-  .formatConf.fecMode = 0x0,
-  .formatConf.whitenMode = 0x7,
-  .config.frontEndMode = 0x0, /* set by driver */
-  .config.biasMode = 0x0, /* set by driver */
-  .config.analogCfgMode = 0x0,
-  .config.bNoFsPowerUp = 0x0,
-  .txPower = 0xCC14, /* set by driver */
-  .pRegOverride = rf_prop_overrides,
-  .centerFreq = 0x0393, /* set by driver */
-  .intFreq = 0x8000, /* set by driver */
-  .loDivider = 0x05, /* set by driver */
+ .commandNo = 0x3807,
+ .status = 0x0000,
+ .pNextOp = 0,
+ .startTime = 0x00000000,
+ .startTrigger.triggerType = 0x0,
+ .startTrigger.bEnaCmd = 0x0,
+ .startTrigger.triggerNo = 0x0,
+ .startTrigger.pastTrig = 0x0,
+ .condition.rule = 0x1,
+ .condition.nSkip = 0x0,
+ .modulation.modType = 0x1,
+ .modulation.deviation = 0xC8,
+ .modulation.deviationStepSz = 0x0,
+ .symbolRate.preScale = 0xF,
+ .symbolRate.rateWord = 0x20000,
+ .symbolRate.decimMode = 0x0,
+ .rxBw = 0x59,
+ .preamConf.nPreamBytes = 0x7,
+ .preamConf.preamMode = 0x0,
+ .formatConf.nSwBits = 0x18,
+ .formatConf.bBitReversal = 0x0,
+ .formatConf.bMsbFirst = 0x1,
+ .formatConf.fecMode = 0x0,
+ .formatConf.whitenMode = 0x7,
+ .config.frontEndMode = 0x0,
+ .config.biasMode = 0x1,
+ .config.analogCfgMode = 0x0,
+ .config.bNoFsPowerUp = 0x0,
+ .txPower = 0xB224,
+ .pRegOverride = rf_prop_overrides,
+ .centerFreq = 0x0364,
+ .intFreq = 0x0999,
+ .loDivider = 0x05
 };
 
 #endif /* defined(DEVICE_CC1312R) || defined(DEVICE_CC1352R) */
@@ -200,7 +200,7 @@ rfc_CMD_PROP_RADIO_DIV_SETUP_PA_t rf_cmd_prop_radio_div_setup =
   .config.bNoFsPowerUp = 0x0,
   .txPower = 0xB224, /* set by driver */
   .pRegOverride = rf_prop_overrides,
-  .centerFreq = 0x0393, /* set by driver */
+  .centerFreq = 0x0364, /* set by driver */
   .intFreq = 0x8000, /* set by driver */
   .loDivider = 0x05, /* set by driver */
   .pRegOverrideTxStd = rf_prop_overrides_tx_std,
@@ -222,7 +222,7 @@ rfc_CMD_FS_t rf_cmd_prop_fs =
   .startTrigger.pastTrig = 0x0,
   .condition.rule = COND_NEVER,
   .condition.nSkip = 0x0,
-  .frequency = 0x0393, /* set by driver */
+  .frequency = 0x0364, /* set by driver */
   .fractFreq = 0x0000, /* set by driver */
   .synthConf.bTxMode = 0x0,
   .synthConf.refFreq = 0x0,
