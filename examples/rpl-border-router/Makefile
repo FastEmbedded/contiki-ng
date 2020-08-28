@@ -1,4 +1,10 @@
 CONTIKI_PROJECT = border-router
+
+TARGET = simplelink
+BOARD = launchpad/cc1352r1
+SMALL = 0
+V = 1
+
 all: $(CONTIKI_PROJECT)
 CONTIKI = ../..
 

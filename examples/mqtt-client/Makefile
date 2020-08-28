@@ -1,6 +1,11 @@
 CONTIKI_PROJECT = mqtt-client
 all: $(CONTIKI_PROJECT)
 
+TARGET = simplelink
+BOARD = launchpad/cc1352r1
+SMALL = 0
+V = 1
+
 CONTIKI = ../..
 
 include $(CONTIKI)/Makefile.dir-variables

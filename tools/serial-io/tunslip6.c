@@ -64,7 +64,7 @@
 #endif
 speed_t b_rate = BAUDRATE;
 
-int verbose = 2;
+int verbose = 1;
 const char *ipaddr;
 const char *netmask;
 int slipfd = 0;
@@ -280,8 +280,9 @@ serial_to_tun(FILE *inslip, int outfd)
             printf("\n");
           }
         }
-	if(write(outfd, uip.inbuf, inbufptr) != inbufptr) {
-	  err(1, "serial_to_tun: write");
+  int ret = write(outfd, uip.inbuf, inbufptr);
+	if(ret != inbufptr) {
+	  err(1, "serial_to_tun: write(%d,%d)", inbufptr, ret);
 	}
       }
       inbufptr = 0;
@@ -326,7 +327,7 @@ serial_to_tun(FILE *inslip, int outfd)
       }
     } else if(verbose==4) {
       if(c == 0 || c == '\r' || c == '\n' || c == '\t' || (c >= ' ' && c <= '~')) {
-	fwrite(&c, 1, 1, stdout);
+        fwrite(&c, 1, 1, stdout);
         if(c=='\n') if(timestamp) stamptime();
       }
     }

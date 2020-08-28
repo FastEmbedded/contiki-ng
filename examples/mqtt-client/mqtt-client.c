@@ -731,6 +731,7 @@ state_machine(void)
   case STATE_CONFIG_ERROR:
     /* Idle away. The only way out is a new config */
     LOG_ERR("Bad configuration.\n");
+
     return;
   case STATE_ERROR:
   default:
