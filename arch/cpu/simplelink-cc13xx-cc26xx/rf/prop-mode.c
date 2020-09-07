@@ -227,6 +227,15 @@ init_rf_params(void)
 
   cmd_tx.numHdrBits = DOT_4G_PHR_NUM_BYTES * 8;
   cmd_tx.syncWord = DOT_4G_SYNCWORD;
+  cmd_tx.preTrigger.triggerType = TRIG_REL_START;
+
+  cmd_rx.pktConf.bRepeatOk = 0x1;
+  cmd_rx.pktConf.bRepeatNok = 0x1;
+  cmd_rx.pktConf.filterOp = 0x1;
+  cmd_rx.rxConf.bAutoFlushIgnored = 0x1;
+  cmd_rx.rxConf.bAutoFlushCrcErr = 0x1;
+  cmd_rx.rxConf.bAppendRssi = 0x1;
+  cmd_rx.rxConf.bIncludeHdr = 0x0;
 
   cmd_rx.syncWord0 = DOT_4G_SYNCWORD;
   cmd_rx.syncWord1 = 0x00000000;
