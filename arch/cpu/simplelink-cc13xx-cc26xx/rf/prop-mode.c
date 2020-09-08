@@ -77,7 +77,7 @@
 /* Log configuration */
 #include "sys/log.h"
 #define LOG_MODULE "Radio"
-#define LOG_LEVEL LOG_LEVEL_NONE
+#define LOG_LEVEL LOG_LEVEL_INFO
 /*---------------------------------------------------------------------------*/
 #undef CLAMP
 #define CLAMP(v, vmin, vmax)  (MAX(MIN(v, vmax), vmin))
@@ -326,7 +326,7 @@ set_channel(uint16_t channel)
   const uint16_t freq = (uint16_t)(new_freq / 1000);
   const uint16_t frac = (uint16_t)(((new_freq - (freq * 1000)) * 0x10000) / 1000);
 
-  LOG_DBG("Set channel to %d, frequency 0x%04X.0x%04X (%lu)\n",
+  LOG_INFO("Set channel to %d, frequency 0x%04X.0x%04X (%lu)\n",
           (int)channel, freq, frac, new_freq);
 
   v_cmd_fs.frequency = freq;
