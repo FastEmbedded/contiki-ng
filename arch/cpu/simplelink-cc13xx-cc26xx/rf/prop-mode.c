@@ -57,6 +57,7 @@
 #include DeviceFamily_constructPath(driverlib/rf_data_entry.h)
 #include DeviceFamily_constructPath(driverlib/rf_prop_cmd.h)
 #include DeviceFamily_constructPath(driverlib/rf_prop_mailbox.h)
+#include DeviceFamily_constructPath(rf_patches/rf_patch_cpe_multi_protocol.h)
 
 #include <ti/drivers/rf/RF.h>
 /*---------------------------------------------------------------------------*/
@@ -220,6 +221,8 @@ static int off(void);
 static void
 init_rf_params(void)
 {
+  rf_prop_mode.cpePatchFxn = &rf_patch_cpe_multi_protocol;
+
   cmd_radio_setup.config.frontEndMode = RF_SUB_1_GHZ_FRONT_END_MODE;
   cmd_radio_setup.config.biasMode = RF_SUB_1_GHZ_BIAS_MODE;
   cmd_radio_setup.centerFreq = PROP_MODE_CENTER_FREQ;
