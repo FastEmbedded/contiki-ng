@@ -579,7 +579,6 @@ const I2CCC26XX_HWAttrsV1 i2cCC26xxHWAttrs[CC1352R1_LAUNCHXL_I2CCOUNT] = {
 const I2C_Config I2C_config[CC1352R1_LAUNCHXL_I2CCOUNT] = {
 #if TI_I2C_CONF_I2C0_ENABLE
     {
-        .fxnTablePtr = &I2CCC26XX_fxnTable,
         .object      = &i2cCC26xxObjects[CC1352R1_LAUNCHXL_I2C0],
         .hwAttrs     = &i2cCC26xxHWAttrs[CC1352R1_LAUNCHXL_I2C0]
     },
