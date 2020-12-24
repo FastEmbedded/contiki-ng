@@ -279,7 +279,7 @@ init_rf_params(void)
   cmd_rx.rxConf.bIncludeHdr = 0x0;
   cmd_rx.rxConf.bIncludeCrc = 0x0;
   cmd_rx.rxConf.bAppendRssi = 0x1;
-  cmd_rx.rxConf.bAppendTimestamp = 0x0;
+  cmd_rx.rxConf.bAppendTimestamp = 0x1;
 
   cmd_rx.syncWord0 = DOT_4G_SYNCWORD;
   cmd_rx.syncWord1 = 0x00000000;
@@ -378,7 +378,7 @@ set_channel_force(uint16_t channel)
   const uint16_t freq = (uint16_t)(new_freq / 1000);
   const uint16_t frac = (uint16_t)(((new_freq - (freq * 1000)) * 0x10000) / 1000);
 
-  LOG_INFO("Set channel to %d, frequency 0x%04X.0x%04X (%lu)\n",
+  LOG_DBG("Set channel to %d, frequency 0x%04X.0x%04X (%lu)\n",
           (int)channel, freq, frac, new_freq);
 
   v_cmd_fs.frequency = freq;
